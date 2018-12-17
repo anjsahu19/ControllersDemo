@@ -1,0 +1,72 @@
+﻿@model IList<ControllersDemo.Models.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Students Enrolled</h2>
+<br />
+Search students: @Html.DropDownList("RollNo",
+new SelectList(Model.Select(x=> x.RollNo),"RollNo"),
+"Please Select Roll No",
+new { id= "rollNoDrop", onchange = "search();" }
+)
+<div>
+    @*<h4>Student</h4>*@
+    <hr />
+    @foreach (var item in Model)
+    {
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => item.RollNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.RollNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.DepartmentName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.DepartmentName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => item.TotalMarks)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.TotalMarks)
+            </dd>
+
+        </dl>
+
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = item.RollNo })
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.RollNo }) |
+                @Html.ActionLink("Back to List", "Index")*@
+        </p>
+    }
+    <h4>
+        @Html.ActionLink("Add New Student", "Create")
+    </h4>
+</div>
+
+<script type="text/javascript">
+    function search() {
+        var e = document.getElementById("rollNoDrop");
+        var strUser = e.options[e.selectedIndex].text;
+       
+        location.href = '/student/Details/' + strUser;
+    }
+</script>
