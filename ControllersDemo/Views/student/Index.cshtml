@@ -52,7 +52,8 @@ new { id= "rollNoDrop", onchange = "search();" }
         </dl>
 
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = item.RollNo })
+            @Html.ActionLink("Edit", "Edit", new { id = item.RollNo }) | 
+            @Html.ActionLink("Delete","Delete", new { id = item.RollNo })
             @*@Html.ActionLink("Edit", "Edit", new { id = item.RollNo }) |
                 @Html.ActionLink("Back to List", "Index")*@
         </p>

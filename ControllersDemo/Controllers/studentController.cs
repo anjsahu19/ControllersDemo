@@ -96,7 +96,8 @@ namespace ControllersDemo.Controllers
         // GET: student/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var student = students.Where(x => x.RollNo == id).SingleOrDefault();
+            return View(student);
         }
 
         // POST: student/Delete/5
@@ -106,7 +107,7 @@ namespace ControllersDemo.Controllers
             try
             {
                 // TODO: Add delete logic here
-
+                students.Remove(students.Where(x => x.RollNo == id).FirstOrDefault());
                 return RedirectToAction("Index");
             }
             catch
