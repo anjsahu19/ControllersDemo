@@ -16,13 +16,6 @@ namespace ControllersDemo.Controllers
             new Student(){RollNo =3, Name="Deepika",DepartmentName="Biotechnology",TotalMarks=78}
         };
 
-        //static Student student = new Student()
-        //{
-        //    RollNo = 1,
-        //    Name = "Anjali",
-        //    DepartmentName = "Information Technology",
-        //    TotalMarks = 75
-        //};
         // GET: student
         public ActionResult Index()
         {

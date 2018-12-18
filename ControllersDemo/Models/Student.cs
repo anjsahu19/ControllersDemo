@@ -12,7 +12,7 @@ namespace ControllersDemo.Models
         public int RollNo { get; set; }
         [DisplayName("Name")]
         public string Name { get; set; }
-        [DisplayName("Department Name")]
+        [DisplayName("Stream")]
         public string DepartmentName { get; set; }
         [DisplayName("Total Marks Obtained")]
         public int TotalMarks { get; set; }
