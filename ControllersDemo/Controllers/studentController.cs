@@ -11,9 +11,9 @@ namespace ControllersDemo.Controllers
     {
         static IList<Student> students = new List<Student>()
         {
-            new Student(){RollNo =1,Name="Kabir",DepartmentName="Information Technology",TotalMarks=75},
-            new Student(){RollNo =2,Name="Sania",DepartmentName="Computer Science",TotalMarks=67},
-            new Student(){RollNo =3, Name="Deepika",DepartmentName="Biotechnology",TotalMarks=78}
+            new Student(){RollNo =1,Name="Kabir",Stream="Information Technology",TotalMarks=75},
+            new Student(){RollNo =2,Name="Sania",Stream="Computer Science",TotalMarks=67},
+            new Student(){RollNo =3, Name="Deepika",Stream="Biotechnology",TotalMarks=78}
         };
 
         // GET: student
@@ -55,7 +55,7 @@ namespace ControllersDemo.Controllers
                     {
                         RollNo = Convert.ToInt32(rollNo[i]),
                         Name = name[i],
-                        DepartmentName = departments[i],
+                        Stream = departments[i],
                         TotalMarks = Convert.ToInt32(marks[i])
                     });
                 }

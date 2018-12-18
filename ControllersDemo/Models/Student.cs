@@ -16,7 +16,7 @@ namespace ControllersDemo.Models
         public string Name { get; set; }
 
         [DisplayName("Stream")] [Required(AllowEmptyStrings =false, ErrorMessage = "Please add Stream")]
-        public string DepartmentName { get; set; }
+        public string Stream { get; set; }
 
         [Required(AllowEmptyStrings =false, ErrorMessage = "Please add Total Marks Obtained by Student")]
         [DisplayName("Total Marks Obtained")][Range(1,100,ErrorMessage ="Marks Should Be Between 1 to 100 Only")]
