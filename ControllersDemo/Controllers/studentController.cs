@@ -9,23 +9,25 @@ namespace ControllersDemo.Controllers
 {
     public class studentController : Controller
     {
-        static IList<Student> students = new List<Student>()
-        {
-            new Student(){RollNo =1,Name="Kabir",Stream="Information Technology",TotalMarks=75},
-            new Student(){RollNo =2,Name="Sania",Stream="Computer Science",TotalMarks=67},
-            new Student(){RollNo =3, Name="Deepika",Stream="Biotechnology",TotalMarks=78}
-        };
-
+        //static IList<Student> students = new List<Student>()
+        //{
+        //    new Student(){RollNo =1,Name="Kabir",Stream="Information Technology",TotalMarks=75},
+        //    new Student(){RollNo =2,Name="Sania",Stream="Computer Science",TotalMarks=67},
+        //    new Student(){RollNo =3, Name="Deepika",Stream="Biotechnology",TotalMarks=78}
+        //};
+        StudentModel StudentDbContext = new StudentModel();
         // GET: student
         public ActionResult Index()
-        {
+        {         
+            var students = StudentDbContext.StudentsDb.ToList();
             return View(students);
         }
 
         // GET: student/Details/5
         public ActionResult Details(int id)
         {
-          
+            var students = StudentDbContext.StudentsDb.ToList();
+
             var student = students.Where(x=> x.RollNo==id).SingleOrDefault();
             return View(student);
         }
@@ -44,14 +46,15 @@ namespace ControllersDemo.Controllers
             {
                 // TODO: Add insert logic here
                 //TryUpdateModel(students, collection);
+               // var students = StudentDbContext.StudentsDb.ToList();
 
                 string[] rollNo= collection["RollNo"].Split(char.Parse(","));
                 string[] name = collection["Name"].Split(char.Parse(","));
-                string[] departments= collection["DepartmentName"].Split(char.Parse(","));
+                string[] departments= collection["Stream"].Split(char.Parse(","));
                 string[] marks= collection["TotalMarks"].Split(char.Parse(","));
                 for (int i = 0; i < rollNo.Length; i++)
                 {
-                    students.Add(new Student()
+                    StudentDbContext.StudentsDb.Add(new Student()
                     {
                         RollNo = Convert.ToInt32(rollNo[i]),
                         Name = name[i],
@@ -59,10 +62,10 @@ namespace ControllersDemo.Controllers
                         TotalMarks = Convert.ToInt32(marks[i])
                     });
                 }
-
+                StudentDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -71,6 +74,7 @@ namespace ControllersDemo.Controllers
         // GET: student/Edit/5
         public ActionResult Edit(int id)
         {
+            var students = StudentDbContext.StudentsDb.ToList();
             var student = students.Where(x => x.RollNo == id).SingleOrDefault();
             return View(student);
         }
@@ -82,12 +86,16 @@ namespace ControllersDemo.Controllers
             try
             {
                 // TODO: Add update logic here
-             //   var student = students.Where(x => x.RollNo == id).SingleOrDefault();
-                TryUpdateModel(students.Where(x => x.RollNo == id).SingleOrDefault(), collection);
+                //   var student = students.Where(x => x.RollNo == id).SingleOrDefault();
+               // var students = StudentDbContext.StudentsDb.ToList();
+                TryUpdateModel(StudentDbContext.StudentsDb.ToList().Where(x => x.RollNo == id).SingleOrDefault(), collection);
+                StudentDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                var students = StudentDbContext.StudentsDb.ToList();
+
                 var student = students.Where(x => x.RollNo == id).SingleOrDefault();
                 return View(student);
             }
@@ -96,6 +104,7 @@ namespace ControllersDemo.Controllers
         // GET: student/Delete/5
         public ActionResult Delete(int id)
         {
+            var students = StudentDbContext.StudentsDb.ToList();
             var student = students.Where(x => x.RollNo == id).SingleOrDefault();
             return View(student);
         }
@@ -107,7 +116,10 @@ namespace ControllersDemo.Controllers
             try
             {
                 // TODO: Add delete logic here
-                students.Remove(students.Where(x => x.RollNo == id).FirstOrDefault());
+                //var students = StudentDbContext.StudentsDb.ToList();
+                var s = StudentDbContext.StudentsDb.ToList().Where(x => x.RollNo == id).FirstOrDefault();
+                StudentDbContext.StudentsDb.Remove(s);
+                StudentDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
