@@ -16,6 +16,7 @@ namespace ControllersDemo.Controllers
         //    new Student(){RollNo =3, Name="Deepika",Stream="Biotechnology",TotalMarks=78}
         //};
         StudentModel StudentDbContext = new StudentModel();
+        
         // GET: student
         public ActionResult Index()
         {         

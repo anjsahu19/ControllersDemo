@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -161,6 +164,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812181159289_InitialCreate.cs" />
+    <Compile Include="Migrations\201812181159289_InitialCreate.Designer.cs">
+      <DependentUpon>201812181159289_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812190746169_AddStudentDepartment.cs" />
+    <Compile Include="Migrations\201812190746169_AddStudentDepartment.Designer.cs">
+      <DependentUpon>201812190746169_AddStudentDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812190818173_AddDepartmentStudents.cs" />
+    <Compile Include="Migrations\201812190818173_AddDepartmentStudents.Designer.cs">
+      <DependentUpon>201812190818173_AddDepartmentStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,7 +211,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -216,7 +234,9 @@
     <Content Include="Views\student\Delete.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -231,6 +251,17 @@
     </None>
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812181159289_InitialCreate.resx">
+      <DependentUpon>201812181159289_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812190746169_AddStudentDepartment.resx">
+      <DependentUpon>201812190746169_AddStudentDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812190818173_AddDepartmentStudents.resx">
+      <DependentUpon>201812190818173_AddDepartmentStudents.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

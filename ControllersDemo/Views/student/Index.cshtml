@@ -49,11 +49,17 @@ new { id= "rollNoDrop", onchange = "search();" }
                 @Html.DisplayFor(model => item.TotalMarks)
             </dd>
 
+            <dt>
+                @Html.DisplayNameFor(model => item.StudentDepartment)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.StudentDepartment.DepartmentName)
+            </dd>
         </dl>
 
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = item.RollNo }) | 
-            @Html.ActionLink("Delete","Delete", new { id = item.RollNo })
+            @Html.ActionLink("Edit", "Edit", new { id = item.RollNo }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.RollNo })
             @*@Html.ActionLink("Edit", "Edit", new { id = item.RollNo }) |
                 @Html.ActionLink("Back to List", "Index")*@
         </p>
@@ -67,7 +73,7 @@ new { id= "rollNoDrop", onchange = "search();" }
     function search() {
         var e = document.getElementById("rollNoDrop");
         var strUser = e.options[e.selectedIndex].text;
-       
+
         location.href = '/student/Details/' + strUser;
     }
 </script>
