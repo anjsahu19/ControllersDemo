@@ -25,21 +25,23 @@ namespace ControllersDemo
         public DbSet<Department> DepartmentsDb { get; set; }
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            //base.OnModelCreating(modelBuilder);
-            Database.SetInitializer<StudentModel>(null);
+        /*
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+        Database.SetInitializer<StudentModel>(null);
+        base.OnModelCreating(modelBuilder);
+        database.setinitializer<studentmodel>(null);
 
-            //modelBuilder.Entity<Student>()
-            //    .HasRequired(x => x.StudentDepartment)
-            //    .WithMany(s => s.DepartmentStudents);
-            // .HasForeignKey<int>(s => s.StudentDepartment_Id);
+        modelbuilder.entity<student>()
+            .hasrequired(x => x.studentdepartment)
+            .withmany(s => s.departmentstudents);
+         .hasforeignkey<int>(s => s.studentdepartment_id);
 
-            //modelBuilder.Entity<Department>()
-            //   .HasMany(x => x.DepartmentStudents)
-            //   .WithRequired(x => x.StudentDepartment);
-        }
-
+        modelbuilder.entity<department>()
+           .hasmany(x => x.departmentstudents)
+           .withrequired(x => x.studentdepartment);
+    }
+    */
     }
 
     //public class MyEntity

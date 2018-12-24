@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace ControllersDemo.Models
@@ -27,8 +29,11 @@ namespace ControllersDemo.Models
         [Range(1, 100, ErrorMessage = "Marks Should Be Between 1 to 100 Only")]
         public int TotalMarks { get; set; }
         
-        [DisplayName("Department")]
+        [DisplayName("Department")][IgnoreDataMember]
         public virtual Department StudentDepartment { get; set; }
+       // [ForeignKey(name: "Id")]
+        public virtual int DepartmentId { get; set; }
+
 
     }
 }

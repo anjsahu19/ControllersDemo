@@ -7,10 +7,10 @@
 <h2>Add Student</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @*<h4>Student</h4>*@
         <hr />
@@ -44,6 +44,19 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TotalMarks, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TotalMarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentDepartment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{ 
+                    List<ControllersDemo.Models.Department> Departments = ViewBag.Departments;                   
+                }
+                @*@Html.DropDownListFor("StudentDepartment", new SelectList(Departments.Select(x=> x.DepartmentName)),
+               new { id = "StudentDepartment"},)*@
+                @Html.DropDownListFor(model=> model.DepartmentId,Departments.Select(option=> new SelectListItem
+                { Text=option.DepartmentName.ToString(),Value=option.Id.ToString()}))
             </div>
         </div>
 

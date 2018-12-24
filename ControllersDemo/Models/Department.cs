@@ -17,9 +17,12 @@ namespace ControllersDemo.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter Department Name.")]
         public string DepartmentName { get; set; }
 
-        [Display(Name ="No of Students")] [Required(AllowEmptyStrings =false, ErrorMessage ="Please Enter No of Students Present")]
-        public int  StudentsPresent { get; set; }
+        [Display(Name = "No of faculties")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter No of faculties Present")]
+        [Column(name: "FacultiesPresent")]
+        public int Nofaculties { get; set; }
 
+        [Display(Name = "No of Students Present")]
         public virtual List<Student> DepartmentStudents { get; set; }
 
     }

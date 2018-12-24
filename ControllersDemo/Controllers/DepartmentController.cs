@@ -24,5 +24,16 @@ namespace ControllersDemo.Controllers
             return View(Departments);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Department collection)
+        {
+            StudentDbContext.DepartmentsDb.Add(collection);
+            StudentDbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

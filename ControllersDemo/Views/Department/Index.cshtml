@@ -16,9 +16,11 @@
             @Html.DisplayNameFor(model => model.DepartmentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StudentsPresent)
+            @Html.DisplayNameFor(model => model.Nofaculties)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model=> model.DepartmentStudents)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -27,7 +29,10 @@
             @Html.DisplayFor(modelItem => item.DepartmentName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StudentsPresent)
+            @Html.DisplayFor(modelItem => item.Nofaculties)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentStudents.Count)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

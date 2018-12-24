@@ -21,6 +21,7 @@ namespace ControllersDemo.Controllers
         public ActionResult Index()
         {         
             var students = StudentDbContext.StudentsDb.ToList();
+            
             return View(students);
         }
 
@@ -36,33 +37,36 @@ namespace ControllersDemo.Controllers
         // GET: student/Create
         public ActionResult Create()
         {
+            ViewBag.Departments = StudentDbContext.DepartmentsDb.ToList();
             return View();
         }
 
         // POST: student/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Student obj)
         {
             try
             {
                 // TODO: Add insert logic here
                 //TryUpdateModel(students, collection);
-               // var students = StudentDbContext.StudentsDb.ToList();
+                // var students = StudentDbContext.StudentsDb.ToList();
 
-                string[] rollNo= collection["RollNo"].Split(char.Parse(","));
-                string[] name = collection["Name"].Split(char.Parse(","));
-                string[] departments= collection["Stream"].Split(char.Parse(","));
-                string[] marks= collection["TotalMarks"].Split(char.Parse(","));
-                for (int i = 0; i < rollNo.Length; i++)
-                {
-                    StudentDbContext.StudentsDb.Add(new Student()
-                    {
-                        RollNo = Convert.ToInt32(rollNo[i]),
-                        Name = name[i],
-                        Stream = departments[i],
-                        TotalMarks = Convert.ToInt32(marks[i])
-                    });
-                }
+                //string[] rollNo= collection["RollNo"].Split(char.Parse(","));
+                //string[] name = collection["Name"].Split(char.Parse(","));
+                //string[] departments= collection["Stream"].Split(char.Parse(","));
+                //string[] marks= collection["TotalMarks"].Split(char.Parse(","));
+                //for (int i = 0; i < rollNo.Length; i++)
+                //{
+                //    StudentDbContext.StudentsDb.Add(new Student()
+                //    {
+                //        RollNo = Convert.ToInt32(rollNo[i]),
+                //        Name = name[i],
+                //        Stream = departments[i],
+                //        TotalMarks = Convert.ToInt32(marks[i])
+                //    });
+                //}
+                
+                StudentDbContext.StudentsDb.Add(obj);
                 StudentDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
