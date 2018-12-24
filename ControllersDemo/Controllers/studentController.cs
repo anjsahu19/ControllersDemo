@@ -47,24 +47,6 @@ namespace ControllersDemo.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                //TryUpdateModel(students, collection);
-                // var students = StudentDbContext.StudentsDb.ToList();
-
-                //string[] rollNo= collection["RollNo"].Split(char.Parse(","));
-                //string[] name = collection["Name"].Split(char.Parse(","));
-                //string[] departments= collection["Stream"].Split(char.Parse(","));
-                //string[] marks= collection["TotalMarks"].Split(char.Parse(","));
-                //for (int i = 0; i < rollNo.Length; i++)
-                //{
-                //    StudentDbContext.StudentsDb.Add(new Student()
-                //    {
-                //        RollNo = Convert.ToInt32(rollNo[i]),
-                //        Name = name[i],
-                //        Stream = departments[i],
-                //        TotalMarks = Convert.ToInt32(marks[i])
-                //    });
-                //}
                 
                 StudentDbContext.StudentsDb.Add(obj);
                 StudentDbContext.SaveChanges();

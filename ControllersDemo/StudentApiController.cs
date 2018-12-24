@@ -13,14 +13,16 @@ namespace ControllersDemo
     {
 
         // GET api/<controller>
-        public IHttpActionResult Get()
+        public HttpResponseMessage Get()
         {
             using (var StudentDbContext = new StudentModel())
             {
                 StudentDbContext.Configuration.ProxyCreationEnabled = false;
-                if (StudentDbContext.StudentsDb.Count() < 0)
-                    return NotFound();
-                return Ok(StudentDbContext.StudentsDb);
+                if (StudentDbContext.StudentsDb.Count() == 0)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "No Data Found");
+                
+                var response = Request.CreateResponse(HttpStatusCode.OK, StudentDbContext.StudentsDb.ToList());
+                return response;
             }
         }
 
@@ -39,31 +41,43 @@ namespace ControllersDemo
         }
 
         // POST api/<controller>
-        public IHttpActionResult Post([FromUri]Student value)
+        public IHttpActionResult Post([FromBody]Student value)
         {
             using (var StudentDbContext = new StudentModel())
             {
-                StudentDbContext.StudentsDb.Add(value);               
+                if (value == null)
+                {
+                    return Content(HttpStatusCode.BadRequest, "No Data Found!");
+                }
+
+                StudentDbContext.StudentsDb.Add(value);
                 StudentDbContext.Entry(value).State = System.Data.Entity.EntityState.Added;
                 StudentDbContext.SaveChanges();
-                return Content(HttpStatusCode.Created, 
+                return Content(HttpStatusCode.Created,
                     string.Format("{0} added in department {1}",
                     value.Name,
-                    StudentDbContext.DepartmentsDb.Where(x => x.Id == value.DepartmentId).Select(x => x.DepartmentName).FirstOrDefault()));              
+                    StudentDbContext.DepartmentsDb.Where(x => x.Id == value.DepartmentId).Select(x => x.DepartmentName).FirstOrDefault()));
             }
-
         }
 
         // PUT api/<controller>/5
-      
-        public void Put(int id, [FromUri]string Name)
+        public IHttpActionResult Put(int id, [FromBody]string Name)
         {
+            if (ModelState.IsValid)
+                return BadRequest("Invalid Data");     
             using (var StudentDbContext = new StudentModel())
             {
+                if (string.IsNullOrEmpty(Name) || id <= 0)               
+                    return Content(HttpStatusCode.NotModified, "Name or rollno not passed");
+                
+                var student = StudentDbContext.StudentsDb.Where(x => x.RollNo == id).FirstOrDefault();
+                if (student == null)
+                    return Content(HttpStatusCode.NotFound, string.Format("Student with rollno {0} not found", id));
                 StudentDbContext.StudentsDb.Where(x => x.RollNo == id).FirstOrDefault().Name = Name;
+                StudentDbContext.Entry(student).State = System.Data.Entity.EntityState.Modified;
                 StudentDbContext.SaveChanges();
+                return Content(HttpStatusCode.OK, string.Format("rollNo {0} name modified", Name));
             }
-
         }
 
         // DELETE api/<controller>/5
@@ -74,12 +88,12 @@ namespace ControllersDemo
                 var student = StudentDbContext.StudentsDb.Where(x => x.RollNo == id).FirstOrDefault();
                 if (student == null)
                     return NotFound();
-                StudentDbContext.StudentsDb.Remove(student);               
+                StudentDbContext.StudentsDb.Remove(student);
                 StudentDbContext.Entry(student).State = System.Data.Entity.EntityState.Deleted;
                 StudentDbContext.SaveChanges();
-                return Content(HttpStatusCode.OK,String.Format("Rollno {0} deleted Successfully!", id));
+                return Content(HttpStatusCode.OK, String.Format("Rollno {0} deleted Successfully!", id));
             }
-           
+
         }
     }
 }
