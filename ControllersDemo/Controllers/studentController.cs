@@ -16,21 +16,23 @@ namespace ControllersDemo.Controllers
         //    new Student(){RollNo =3, Name="Deepika",Stream="Biotechnology",TotalMarks=78}
         //};
         StudentModel StudentDbContext = new StudentModel();
-        
+
         // GET: student
         public ActionResult Index()
-        {         
-            var students = StudentDbContext.StudentsDb.ToList();
-            
+        {
+            ApiCall apiCall = new ApiCall("http://localhost:49552/");
+            var students = apiCall.GetStudents("api/StudentApi/Get/");
+            //var students = StudentDbContext.StudentsDb.ToList();
             return View(students);
         }
 
         // GET: student/Details/5
         public ActionResult Details(int id)
         {
-            var students = StudentDbContext.StudentsDb.ToList();
-
-            var student = students.Where(x=> x.RollNo==id).SingleOrDefault();
+            //var students = StudentDbContext.StudentsDb.ToList();
+            ApiCall apiCall = new ApiCall("http://localhost:49552/");
+            var students = apiCall.GetStudents("api/StudentApi/Get/");
+            var student = students.Where(x => x.RollNo == id).SingleOrDefault();
             return View(student);
         }
 
@@ -47,12 +49,12 @@ namespace ControllersDemo.Controllers
         {
             try
             {
-                
+
                 StudentDbContext.StudentsDb.Add(obj);
                 StudentDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View();
             }
@@ -74,12 +76,12 @@ namespace ControllersDemo.Controllers
             {
                 // TODO: Add update logic here
                 //   var student = students.Where(x => x.RollNo == id).SingleOrDefault();
-               // var students = StudentDbContext.StudentsDb.ToList();
+                // var students = StudentDbContext.StudentsDb.ToList();
                 TryUpdateModel(StudentDbContext.StudentsDb.ToList().Where(x => x.RollNo == id).SingleOrDefault(), collection);
                 StudentDbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var students = StudentDbContext.StudentsDb.ToList();
 
